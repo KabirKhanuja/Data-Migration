@@ -1,0 +1,6 @@
+faker
+tqdm
+psycopg2-binary
+mysql-connector-python
+numpy
+pandas
