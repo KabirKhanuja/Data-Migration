@@ -21,13 +21,37 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("Paste your SQL queries below :")
     col_sel = st.selectbox("Select DB to paste queries", ["MySQL", "Postgres", "SQLite"])
-    example = {
+
+    mysql_example = {
         "SELECT": "SELECT * FROM orders WHERE total_amt > 500 LIMIT 100;",
         "INSERT": "INSERT INTO products(name,price,category) VALUES ('X', 9.99, 'A');",
         "UPDATE": "UPDATE orders SET total_amt = total_amt + 1 WHERE order_id = 1;",
         "DELETE": "DELETE FROM products WHERE name='X';",
         "JOIN": "SELECT o.order_id, c.name FROM orders o JOIN customers c ON o.customer_id = c.customer_id WHERE o.total_amt > 500;"
     }
+
+    postgres_example = {
+        "SELECT": "SELECT * FROM orders WHERE total_amt > 500 LIMIT 100;",
+        "INSERT": "INSERT INTO products(name,price,category) VALUES ('X', 9.99, 'A');",
+        "UPDATE": "UPDATE orders SET total_amt = total_amt + 1 WHERE order_id = 1;",
+        "DELETE": "DELETE FROM products WHERE name='X';",
+        "JOIN": "SELECT o.order_id, c.name FROM orders o INNER JOIN customers c ON o.customer_id = c.customer_id WHERE o.total_amt > 500;"
+    }
+
+    sqlite_example = {
+        "SELECT": "SELECT * FROM orders WHERE total_amt > 500 LIMIT 100;",
+        "INSERT": "INSERT INTO products(name,price,category) VALUES ('X', 9.99, 'A');",
+        "UPDATE": "UPDATE orders SET total_amt = total_amt + 1 WHERE order_id = 1;",
+        "DELETE": "DELETE FROM products WHERE name='X';",
+        "JOIN": "SELECT o.order_id, c.name FROM orders o JOIN customers c ON o.customer_id = c.customer_id WHERE o.total_amt > 500;"
+    }
+
+    if col_sel == "MySQL":
+        example = mysql_example
+    elif col_sel == "Postgres":
+        example = postgres_example
+    else:
+        example = sqlite_example
     qry_text = st.text_area(f"{col_sel} queries (JSON-like or free text). Example shown below:",
                              value=json.dumps(example, indent=2), height=220)
     run_btn = st.button("Run Analysis")
