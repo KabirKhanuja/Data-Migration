@@ -1,8 +1,6 @@
-# mpi_calc.py
 import numpy as np
 import pandas as pd
 
-# Example raw metrics from three DBs (replace with measured values)
 data = {
     'DB': ['MySQL','Postgres','SQLite'],
     'T_mig': [102.8, 118.5, 78.3],
@@ -11,7 +9,6 @@ data = {
     'C_r': [99.4, 99.9, 98.8]
 }
 df = pd.DataFrame(data)
-# min-max normalization
 for col in ['T_mig','T_q','eta_s','C_r']:
     mn, mx = df[col].min(), df[col].max()
     df['n_'+col] = (df[col] - mn) / (mx - mn) if mx!=mn else 1.0
